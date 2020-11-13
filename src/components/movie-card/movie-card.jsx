@@ -2,10 +2,10 @@ import React from 'react';
 
 export class MovieCard extends React.Component {
   render() {
-    const { movie, onClick } = this.props;
+    const { movie, handleClick } = this.props;
 
     return (
-      <div onClick = {() => onClick(movie)} className = "movie-card">{movie.Title}</div>
+      <div onClick = {() => handleClick(movie)} className = "movie-card">{movie.Title}</div>
     );
   }
 }

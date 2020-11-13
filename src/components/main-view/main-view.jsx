@@ -35,6 +35,12 @@ export class MainView extends React.Component {
     });
   }
 
+  clearSelectedMovie = () => {
+    this.setState({
+      selectedMovie: null
+    });
+  }
+
   //This overrides the render() method of the superclass. 
   render() {
     const { movies, selectedMovie } = this.state;
@@ -44,9 +50,9 @@ export class MainView extends React.Component {
     return (
       <div className = "main-view">
         { selectedMovie
-          ? <MovieView movie = {selectedMovie}/>
+          ? <MovieView movie = {selectedMovie}  goBack = {this.clearSelectedMovie}/>
           : movies.map(movie => (
-            <MovieCard key = {movie._id} movie = {movie} onClick = {movie => this.onMovieClick(movie)}/>
+            <MovieCard key = {movie._id} movie = {movie} handleClick = {movie => this.onMovieClick(movie)}/>
         ))}
       </div>
     );

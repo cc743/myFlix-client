@@ -31606,10 +31606,10 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           movie = _this$props.movie,
-          _onClick = _this$props.onClick;
+          handleClick = _this$props.handleClick;
       return _react.default.createElement("div", {
         onClick: function onClick() {
-          return _onClick(movie);
+          return handleClick(movie);
         },
         className: "movie-card"
       }, movie.Title);
@@ -31672,13 +31672,15 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   _createClass(MovieView, [{
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
+      var _this$props = this.props,
+          movie = _this$props.movie,
+          goBack = _this$props.goBack;
       if (!movie) return null;
       return _react.default.createElement("div", {
         className: "movie-view"
       }, _react.default.createElement("img", {
         className: "movie-poster",
-        src: movie.imagePath
+        src: movie.ImagePath
       }), _react.default.createElement("div", {
         className: "movie-title"
       }, _react.default.createElement("span", {
@@ -31705,9 +31707,9 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "value"
       }, movie.Director.Name)), _react.default.createElement("div", null, _react.default.createElement("button", {
         onClick: function onClick() {
-          return location.assign("http://localhost:1234");
+          return goBack();
         },
-        classname: "back-button"
+        className: "back-button"
       }, "Back")));
     }
   }]);
@@ -31768,6 +31770,12 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this); //Initialize the state to an empty object so we can destructure it later
 
+    _this.clearSelectedMovie = function () {
+      _this.setState({
+        selectedMovie: null
+      });
+    };
+
     _this.state = {
       movies: null,
       selectedMovie: null
@@ -31797,10 +31805,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       this.setState({
         selectedMovie: movie
       });
-    } //This overrides the render() method of the superclass. 
-
+    }
   }, {
     key: "render",
+    //This overrides the render() method of the superclass. 
     value: function render() {
       var _this3 = this;
 
@@ -31813,12 +31821,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       return _react.default.createElement("div", {
         className: "main-view"
       }, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
-        movie: selectedMovie
+        movie: selectedMovie,
+        goBack: this.clearSelectedMovie
       }) : movies.map(function (movie) {
         return _react.default.createElement(_movieCard.MovieCard, {
           key: movie._id,
           movie: movie,
-          onClick: function onClick(movie) {
+          handleClick: function handleClick(movie) {
             return _this3.onMovieClick(movie);
           }
         });
@@ -31991,7 +32000,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49918" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49497" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
