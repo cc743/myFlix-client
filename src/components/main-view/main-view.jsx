@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import { MovieCard } from '../movie-card/movie-card'; //two periods??
+import { LoginView } from '../login-view/login-view';
+import { MovieCard } from '../movie-card/movie-card'; 
 import { MovieView } from '../movie-view/movie-view';
 
 export class MainView extends React.Component {
@@ -11,13 +12,14 @@ export class MainView extends React.Component {
     //Initialize the state to an empty object so we can destructure it later
     this.state = {
       movies: null,
-      selectedMovie: null
+      selectedMovie: null,
+      user: null
     };
   }
 
   //one of the "hooks" available to in a React component
   componentDidMount() {
-    axios.get('https://the-greatest.herokuapp.com/movies') //<-- please set this to your Heroku endpoint
+    axios.get('https://the-greatest.herokuapp.com/movies') //<-- please set this to your Heroku '/movies' endpoint
       .then(response => {
         //assign the result to the state
         this.setState({
@@ -41,9 +43,17 @@ export class MainView extends React.Component {
     });
   }
 
+  onLoggedIn(user) {
+    this.setState({
+      user
+    });
+  }
+
   //This overrides the render() method of the superclass. 
   render() {
-    const { movies, selectedMovie } = this.state;
+    const { movies, selectedMovie, user } = this.state;
+
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>;
 
     if (!movies) return <div className = "main-view"/>;
 
