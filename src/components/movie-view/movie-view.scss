@@ -1,19 +1,33 @@
-$yellow: #d6de45;
+$yellow: #7e6e1c;
 $purple: #351c80;
+$blue: #3480eb;
 $bodyFont: 'Roboto Slab', sans-serif;
 
-.movie-poster {
-
+.movie-view {
+  font-family: $bodyFont;
 }
 
-.movie-title {
-
+.movie-poster {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .label {
-
+  color: white;
 }
 
 .value{
-  
+  color: white;
+}
+
+.back-button {
+  margin-top: 10px;
+  background-color: $blue;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.back-button:hover {
+  background-color: white;
+  color: $blue;
 }

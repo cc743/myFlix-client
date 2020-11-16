@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import './login-view.scss'
+
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -31,19 +33,19 @@ export function LoginView(props) {
       <button type="button" onClick={handleSubmit}>Submit</button>
     </form> */
 
-    <Form>
-      <Container>
-        <Form.Label>
+    <Form className="overall-form">
+      <Container className="header">
+        <Form.Label className="label">
           <h1>Log-In to myFlix</h1>
         </Form.Label>
       </Container>
-      <Container>
+      <Container className="login-form">
         <Form.Group controlId="formUsername">
-          <Form.Label>Username</Form.Label>
+          <Form.Label className="label">Username</Form.Label>
           <Form.Control type="text" value = {username} onChange={e => setUsername(e.target.value)}/>
         </Form.Group>
         <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className="label">Password</Form.Label>
           <Form.Control type="password" value = {password} onChange={e => setPassword(e.target.value)}/>
         </Form.Group>
         <Col>
