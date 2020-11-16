@@ -5,6 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
+import './movie-view.scss'
+
 export class MovieView extends React.Component {
 
   constructor() {
