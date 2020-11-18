@@ -66,7 +66,6 @@ export function LoginView(props) {
         </Form.Group>
         <Col>
           <Button className="login-button" block type="submit" onClick={handleSubmit}>Submititi</Button>
-          <Button className="login-button" block type="submit" onClick={handleRegistrant}>Register</Button>
         </Col>
       </Container>
     </Form>
