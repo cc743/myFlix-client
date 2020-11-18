@@ -5,6 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
+import { Link } from "react-router-dom";
+
 import './movie-view.scss'
 
 export class MovieView extends React.Component {
@@ -16,7 +18,7 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie, goBack } = this.props;
+    const { movie } = this.props;
 
     if (!movie) return null;
 
@@ -81,7 +83,9 @@ export class MovieView extends React.Component {
           </Row>
 
           <Row>
-            <Button onClick={() => goBack()} className="back-button">Back</Button>
+          <Link to = {`/`}>
+            <Button variant="link">Go Back</Button>
+          </Link>
           </Row>
         </Container>
       </div>

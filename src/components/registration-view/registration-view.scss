@@ -1,1 +1,38 @@
 //styling for registration-view.jsx to be added here
+
+$yellow: #7e6e1c;
+$purple: #351c80;
+$blue: #3480eb;
+$bodyFont: 'Roboto Slab', sans-serif;
+
+html {
+  background: linear-gradient(90deg, $yellow 40%, $purple 60%);
+}
+
+.overall-form {
+  background: linear-gradient(90deg, $yellow 40%, $purple 60%);
+}
+
+.header {
+  margin-top: 20px;
+  font-family: $bodyFont;
+}
+
+.login-form {
+  margin-top: 5px;
+  font-family: $bodyFont;
+}
+
+.login-button {
+  width: 12em;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: $blue;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.login-button:hover {
+  background-color: white;
+  color: $blue;
+}

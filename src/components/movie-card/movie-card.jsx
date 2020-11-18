@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+import { Link } from "react-router-dom";
+
 import './movie-card.scss'
 
 export class MovieCard extends React.Component {
   render() {
-    const { movie, handleClick } = this.props;
+    const { movie } = this.props;
 
     return (
       //<div onClick = {() => handleClick(movie)} className = "movie-card">{movie.Title}</div>
@@ -16,7 +18,9 @@ export class MovieCard extends React.Component {
         <Card.Body className="card-body">
           <Card.Title className="card-title">{movie.Title}</Card.Title>
           <Card.Text className="card-text">{movie.Description}</Card.Text>
-          <Button className="sesame-button" onClick={() => handleClick(movie)}>Open Sesame</Button>
+          <Link to = {`/movies/${movie._id}`}>
+            <Button variant="link">Open Sesame</Button>
+          </Link>
         </Card.Body>
       </Card>
     );
@@ -28,6 +32,5 @@ MovieCard.propTypes = {
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired
-  }).isRequired,
-  handleClick: PropTypes.func.isRequired 
+  }).isRequired 
 };
