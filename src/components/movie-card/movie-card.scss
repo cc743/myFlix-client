@@ -1,0 +1,32 @@
+$yellow: #7e6e1c;
+$purple: #351c80;
+$blue: #3480eb;
+$bodyFont: 'Roboto Slab', sans-serif;
+
+.card{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.card-body {
+  font-family: $bodyFont;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-text {
+  font-style: italic;
+}
+
+.sesame-button {
+  background-color: $blue;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.sesame-button:hover {
+  background-color: white;
+  color: $blue;
+}

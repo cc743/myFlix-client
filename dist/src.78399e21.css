@@ -1,3 +1,96 @@
+html {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
+.overall-form {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
+.header {
+  margin-top: 20px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.login-form {
+  margin-top: 5px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.login-button {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #3480eb;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.login-button:hover {
+  background-color: white;
+  color: #3480eb;
+}
+.card {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.card-body {
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-text {
+  font-style: italic;
+}
+
+.sesame-button {
+  background-color: #3480eb;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.sesame-button:hover {
+  background-color: white;
+  color: #3480eb;
+}
+.movie-view {
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.movie-poster {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.label {
+  color: white;
+}
+
+.value {
+  color: white;
+}
+
+.back-button {
+  margin-top: 10px;
+  background-color: #3480eb;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.back-button:hover {
+  background-color: white;
+  color: #3480eb;
+}
+html {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
+.main-view {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
 .my-flix {
   color: steelblue;
 }
