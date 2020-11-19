@@ -12,6 +12,8 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card'; 
 import { MovieView } from '../movie-view/movie-view';
+import { GenreView } from '../genre-view/genre-view';
+import { DirectorView } from '../director-view/director-view';
 
 import './main-view.scss'
 
@@ -36,18 +38,6 @@ export class MainView extends React.Component {
       this.getMovies(accessToken);
     }
   }
-
-  /* onMovieClick(movie) {
-    this.setState({
-      selectedMovie: movie
-    });
-  }
-
-  clearSelectedMovie = () => {
-    this.setState({
-      selectedMovie: null
-    });
-  } */
 
   onLoggedIn(authData) {
     console.log(authData);
@@ -91,6 +81,8 @@ export class MainView extends React.Component {
           }/>
           <Route path="/register" render = {() => <RegistrationView />} />
           <Route path = "/movies/:movieId" render = {( {match} ) => <MovieView movie = {movies.find(m => m._id === match.params.movieId )}/> }/>  
+          <Route path = "/Genres/:name" render = {( {match} ) => <GenreView movie = {movies.find(m => m.Genre.Name === match.params.name)} />}/>
+          <Route path = "/Directors/:name" render = {( {match} ) => <DirectorView movie = {movies.find(m => m.Director.Name === match.params.name)} />}/> 
         </div>
       </Router>
 

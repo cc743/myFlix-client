@@ -119,6 +119,37 @@ html {
   background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
 }
 
+.genre-view {
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.genre-name {
+  margin-top: 10px;
+}
+
+.label {
+  color: white;
+}
+
+.value {
+  color: white;
+}
+
+.back-button {
+  margin-top: 10px;
+  background-color: #3480eb;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.back-button:hover {
+  background-color: white;
+  color: #3480eb;
+}
+html {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
 .main-view {
   background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
 }
