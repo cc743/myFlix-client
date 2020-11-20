@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Link } from "react-router-dom";
 
 import './login-view.scss'
 
@@ -37,17 +38,6 @@ export function LoginView(props) {
   }
 
   return (
-    /* <form>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)}/>
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
-      </label>
-      <button type="button" onClick={handleSubmit}>Submit</button>
-    </form> */
     
     <Form className="overall-form">
       <Container className="header">
@@ -66,6 +56,10 @@ export function LoginView(props) {
         </Form.Group>
         <Col>
           <Button className="login-button" block type="submit" onClick={handleSubmit}>Submititi</Button>
+          <h5 className="label">New to the Site?</h5>
+          <Link className="link" to = {`/register`}>
+            <Button className="login-button" variant="link">Register Here</Button> 
+        </Link>
         </Col>
       </Container>
     </Form>

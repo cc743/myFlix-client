@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
@@ -14,6 +15,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
+import { ProfileView } from '../profile-view/profile-view';
 
 import './main-view.scss'
 
@@ -24,7 +26,6 @@ export class MainView extends React.Component {
     //Initialize the state to an empty object so we can destructure it later
     this.state = {
       movies: [],
-      //selectedMovie: null,
       user: null
     };
   }
@@ -75,15 +76,24 @@ export class MainView extends React.Component {
 
       <Router>
         <div className = "main-view">
+          <Row>
+            <Button className="username-button">{user}</Button>
+          </Row>
           <Route exact path = "/" render = {() => {
             if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>;
-            return movies.map(m => <MovieCard key = {m._id} movie = {m} />)} 
+            return movies.map(m => 
+              <MovieCard key = {m._id} movie = {m} />
+            ) 
+          } 
           }/>
           <Route path="/register" render = {() => <RegistrationView />} />
+          <Route path="/profile" render = {() => <ProfileView />} />
           <Route path = "/movies/:movieId" render = {( {match} ) => <MovieView movie = {movies.find(m => m._id === match.params.movieId )}/> }/>  
           <Route path = "/Genres/:name" render = {( {match} ) => <GenreView movie = {movies.find(m => m.Genre.Name === match.params.name)} />}/>
           <Route path = "/Directors/:name" render = {( {match} ) => <DirectorView movie = {movies.find(m => m.Director.Name === match.params.name)} />}/> 
+          
         </div>
+
       </Router>
 
       );
@@ -106,11 +116,3 @@ MainView.propTypes = {
   }),
   user: PropTypes.string
 };
-
-/* <div className = "main-view">
-        { selectedMovie
-          ? <MovieView movie = {selectedMovie}  goBack = {this.clearSelectedMovie}/>
-          : movies.map(movie => (
-            <MovieCard key = {movie._id} movie = {movie} handleClick = {movie => this.onMovieClick(movie)}/>
-        ))}
-      </div> */

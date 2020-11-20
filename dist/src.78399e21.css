@@ -150,8 +150,51 @@ html {
   background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
 }
 
+.director-view {
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.director-name {
+  margin-top: 10px;
+}
+
+.label {
+  color: white;
+}
+
+.value {
+  color: white;
+}
+
+.back-button {
+  margin-top: 10px;
+  background-color: #3480eb;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.back-button:hover {
+  background-color: white;
+  color: #3480eb;
+}
+.unregister-button {
+  margin-top: 10px;
+}
+
+.fav-movies {
+  color: white;
+  margin-top: 10px;
+}
+html {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
 .main-view {
   background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
+.username-button {
+  margin-left: 90%;
 }
 .my-flix {
   color: steelblue;

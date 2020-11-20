@@ -33,21 +33,6 @@ export function RegistrationView(props) {
   };
 
   return (
-    /* <form>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)}/>
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
-      </label>
-      <label>
-        Email:
-        <input type="text" value={email} onChange={e => setEmail(e.target.value)}/>
-      </label>
-      <button type="button" onClick={handleSubmit}>Register</button>
-    </form> */
 
     <Form>
       <Container>
@@ -56,15 +41,15 @@ export function RegistrationView(props) {
       </Form.Label>
       </Container>
       <Container>
-      <Form.Group controlID="formUsername">
+      <Form.Group>
         <Form.Label className = "label">Username</Form.Label>
         <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)}/>
       </Form.Group>
-      <Form.Group controlId="formPassword">
+      <Form.Group>
         <Form.Label className = "label">Password</Form.Label>
         <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)}/>
       </Form.Group>
-      <Form.Group controlId="formEmail">
+      <Form.Group>
         <Form.Label className = "label">E-mail</Form.Label>
         <Form.Control type="text" value={email} onChange={e => setEmail(e.target.value)}/>
       </Form.Group>
