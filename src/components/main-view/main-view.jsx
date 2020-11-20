@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Link, BrowserRouter as Router, Route } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -34,7 +34,7 @@ export class MainView extends React.Component {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.setState({
-        user: localStorage.getItem('user')
+        user: JSON.parse(localStorage.getItem('user'))
       });
       this.getMovies(accessToken);
     }
@@ -43,11 +43,11 @@ export class MainView extends React.Component {
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
-      user: authData.user.username
+      user: authData.user
     });
 
     localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.username);
+    localStorage.setItem('user', JSON.stringify(authData.user));
     this.getMovies(authData.token);
   }
 
@@ -77,7 +77,9 @@ export class MainView extends React.Component {
       <Router>
         <div className = "main-view">
           <Row>
-            <Button className="username-button">{user}</Button>
+              <Link to="/profile" className="username-button">
+                <Button>{user && user.username}</Button>
+              </Link>
           </Row>
           <Route exact path = "/" render = {() => {
             if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>;

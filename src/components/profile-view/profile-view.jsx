@@ -17,89 +17,60 @@ export class ProfileView extends React.Component {
     super(props);
 
     this.state = {
-      username: null,
-      password: null,
-      email: null,
-      favoriteMovie: [],
-      movies: []
+     username: '',
+     email: '',
+     favoriteMovies: [],
+     password: '',
+     __v: '',
+     _id: ''
     };
   }
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      this.getUser(accessToken);  //note: getUser is a method we create below
+      const user = JSON.parse(localStorage.getItem('user'));
+      this.setState({
+        username: user.username,
+        email: user.email,
+        favoriteMovies: user.favoriteMovie,
+        password: user.password,
+      });
     }
   }
 
-  getUser(token) {
-    let activeUser = localStorage.getItem('user');
-    axios.get(`https://the-greatest.herokuapp.com/users/${activeUser}`, {
+  handleUpdate = (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem('token');
+
+    axios.put(`https://the-greatest.herokuapp.com/users/${this.state.username}`, {
       headers: {Authorization: `Bearer ${token}`}, 
+      data: {
+        email: this.state.email,
+        username: this.state.username,
+        password: this.state.password
+      },
     })
-    .then(response => {
-      this.setState({
-        username: response.data.username,
-        password: response.data.password,
-        email: response.data.email, 
-        favoriteMovie: response.data.favoriteMovie
+      .then(response => {
+        alert('Saved Changes');
+        console.log(response);
+        
+        localStorage.setItem('user', this.state);
+      })
+      .catch(function (error){
+        console.log(error);
       });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+
   }
 
-  // handleUpdate(e, newUsername, newEmail) {
-  //   this.setState({
-  //     validated: null
-  //   });
-
-  //   const form = e.currentTarget;
-  //   if (form.checkValidity() === false) {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //     this.setState({
-  //       validated: true
-  //     });
-  //     return;
-  //   }
-  //   e.preventDefault();
-
-  //   const token = localStorage.getItem('token');
-
-  //   axios.put(`https://the-greatest.herokuapp.com/users/${activeUser}`, {
-  //     headers: {Authorization: `Bearer ${token}`}, 
-  //     data: {
-  //       username: newUsername ? newUsername: this.state.username,
-  //       password: this.password,
-  //       email: newEmail ? newEmail: this.state.email
-  //     },
-  //   })
-  //     .then(response => {
-  //       alert('Saved Changes');
-  //       this.setState({
-  //         username: response.data.username,
-  //         password: response.data.password,
-  //         email: response.data.email
-  //       });
-  //       localStorage.setItem('user', this.state.username);
-  //       window.open(`/users/${username}`, '_self');
-  //     })
-  //     .catch(function (error){
-  //       console.log(error);
-  //     });
-
-  // }
+  updateFormValue = (key, value) => {
+    this.setState({
+      [key]: value
+    })
+  }
 
   render() {
-    const{movies} = this.props;
-    const userFavoriteMovies = this.state.favoriteMovie || [];
-    console.log(userFavoriteMovies);
-    console.log(userFavoriteMovies.length);
-    // const favoriteMoviesList = movies.filter((movie) => userFavoriteMovies.includes(movie._id));  //encountering an issue where browser renders empty arrays before rendering the actual array, therefore giving me an error with 'filter' method
-    
-
     return (
       <div className = "profile-view">
         <Container>
@@ -111,15 +82,11 @@ export class ProfileView extends React.Component {
         </Container>
         <Container>
           <Form.Group>
-            <Form.Label className="label">Update Your Username: </Form.Label>
-            <Form.Control type="text"/>
-          </Form.Group>
-          <Form.Group>
             <Form.Label className="label">Update Your Email: </Form.Label>
-            <Form.Control type="text"/>
+            <Form.Control type="text" value={this.state.email} onChange={(e) => this.updateFormValue('email', e.target.value)} />
           </Form.Group>
           <Row>
-            <Button className="update button">Update Now!</Button>
+            <Button className="update button" onClick={this.handleUpdate}>Update Now!</Button>
           </Row>
           <Row>
           <Button className="unregister-button">Unregister</Button>
@@ -128,30 +95,13 @@ export class ProfileView extends React.Component {
 
         <Container>
           <h2 className="fav-movies">My Favorite Movies</h2>
-          {/* {favoriteMoviesList.map((movie) => {
-            return (
-              <Card key={movie._id}>
-                <Card.Img variant="top" src={movie.ImagePath}/>
-                  <Card.Body>
-                    <Link to={`/movies/${movie._id}`}>
-                      <Button variant="link">Movie Information</Button>
-                    </Link>
-                  </Card.Body>
-              </Card>
-            )
-          })} */}
+          <ul>
+            {this.state.favoriteMovies.map(movie => {
+              return <li key={movie}>{movie}</li>
+            })}
+          </ul>
         </Container>
       </div>
     );
   }
-
-}
-
-ProfileView.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    favoriteMovie: PropTypes.array
-  })
 }
