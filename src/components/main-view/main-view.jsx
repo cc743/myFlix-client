@@ -34,7 +34,8 @@ export class MainView extends React.Component {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.setState({
-        user: JSON.parse(localStorage.getItem('user'))
+        //user: JSON.parse(localStorage.getItem('user'))
+        user: localStorage.getItem('user')
       });
       this.getMovies(accessToken);
     }
@@ -43,11 +44,12 @@ export class MainView extends React.Component {
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
-      user: authData.user
+      user: authData.user.username
     });
 
     localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', JSON.stringify(authData.user));
+    //localStorage.setItem('user', JSON.stringify(authData.user));
+    localStorage.setItem('user', authData.user.username);
     this.getMovies(authData.token);
   }
 
@@ -78,7 +80,7 @@ export class MainView extends React.Component {
         <div className = "main-view">
           <Row>
               <Link to="/profile" className="username-button">
-                <Button>{user && user.username}</Button>
+                <Button>{user}</Button>
               </Link>
           </Row>
           <Route exact path = "/" render = {() => {
