@@ -88,8 +88,6 @@ export class ProfileView extends React.Component {
 
     axios.delete(`https://the-greatest.herokuapp.com/users/${username}`, {
       headers: {Authorization: `Bearer ${token}`},
-
-      //username: username,
     })
     .then((response) => {
       const data = response.data;
@@ -108,7 +106,23 @@ export class ProfileView extends React.Component {
   };
 
   removeItem(movie) {
-    //write code for removing the movie here
+    const username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+
+    axios.delete(`https://the-greatest.herokuapp.com/users/${username}/movies/${movie}`, {
+      headers: {Authorization: `Bearer ${token}`}, 
+
+      favoriteMovie: this.favoriteMovie
+    })
+    .then((response) => {
+      this.setState({
+        favoriteMovie: response.data.favoriteMovie
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    alert("Movie successfully removed");
   }
 
   setUsername(input) {
@@ -124,7 +138,7 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const {movies} = this.props;
+    const movies = this.props.movies;
 
     const username = this.state.username,
       email = this.state.email,
@@ -141,7 +155,7 @@ export class ProfileView extends React.Component {
               <Card.Body>
                 <Card.Text className="text-card">Username: {username}</Card.Text>
                 <Card.Text className="text-card">Email: {email}</Card.Text>
-                <Button className="button-delete" onClick={() => this.handleDeregistration()}>Deregister</Button>
+                <Button className="remove-button" onClick={() => this.handleDeregistration()}>Deregister</Button>
               </Card.Body>
             </Card>
 
@@ -160,7 +174,7 @@ export class ProfileView extends React.Component {
                   <Form.Label className="email-label">E-mail</Form.Label>
                   <Form.Control type="email" placeholder="enter email" name="email" value={this.email} onChange={(e) => this.setEmail(e.target.value)}/>
                 </Form.Group>
-                <Button className="button-update" onClick={() => this.handleUpdate()}>Update Now!</Button>
+                <Button className="back-button" onClick={() => this.handleUpdate()}>Update Now!</Button>
               </Card.Body>
             </Card>
 
@@ -171,13 +185,14 @@ export class ProfileView extends React.Component {
                 {favoriteMovie.length === 0 && <div>No favorites</div>}
                 <div>
                   <ul>
-                    {favoriteMovie.length > 0 && favoriteMovie.map((movie) => {
+                    {favoriteMovie.length > 0 && movies.map((movie) => {
                         if (movie._id === favoriteMovie.find((favMovie) => favMovie === movie._id))
-                      {return (
+                        {return (
                         <li className="favorite-items" key={movie._id}>
-                          {/* {movie.Title} */}
-                          {favoriteMovie}
-                        {/* <Button className="movie-remove-button">Placeholder: Unfavorite</Button> */}
+                          <Link to = {`/movies/${movie._id}`}>
+                            {movie.Title}
+                          </Link>
+                          <Button className="remove-button" onClick={() => this.removeItem(movie._id)}>Remove from Favorites</Button>
                         </li>
                       );
                     }
@@ -185,9 +200,14 @@ export class ProfileView extends React.Component {
                   </ul>
                 </div> 
                 </Card.Body> 
-                </Card>
+              </Card>
 
           </CardGroup>
+          <Row>
+            <Link to = {`/`}>
+              <Button className="back-button" variant="link">Go Back</Button>
+            </Link>
+          </Row>
         </Container>
       </div>
     );
@@ -196,3 +216,4 @@ export class ProfileView extends React.Component {
 
 }
 //11-21 2:26pm progress made!
+//11-22 5:45pm further progress made!  Able to complete profile view after watching 1 youtube video.

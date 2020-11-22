@@ -34,7 +34,6 @@ export class MainView extends React.Component {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.setState({
-        //user: JSON.parse(localStorage.getItem('user'))
         user: localStorage.getItem('user')
       });
       this.getMovies(accessToken);
@@ -48,7 +47,6 @@ export class MainView extends React.Component {
     });
 
     localStorage.setItem('token', authData.token);
-    //localStorage.setItem('user', JSON.stringify(authData.user));
     localStorage.setItem('user', authData.user.username);
     this.getMovies(authData.token);
   }
@@ -91,7 +89,7 @@ export class MainView extends React.Component {
           } 
           }/>
           <Route path="/register" render = {() => <RegistrationView />} />
-          <Route path="/profile" render = {() => <ProfileView />} />
+          <Route path="/profile" render = {() => <ProfileView movies={this.state.movies}/>} />
           <Route path = "/movies/:movieId" render = {( {match} ) => <MovieView movie = {movies.find(m => m._id === match.params.movieId )}/> }/>  
           <Route path = "/Genres/:name" render = {( {match} ) => <GenreView movie = {movies.find(m => m.Genre.Name === match.params.name)} />}/>
           <Route path = "/Directors/:name" render = {( {match} ) => <DirectorView movie = {movies.find(m => m.Director.Name === match.params.name)} />}/> 

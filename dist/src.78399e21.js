@@ -38327,8 +38327,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       _axios.default.delete("https://the-greatest.herokuapp.com/users/".concat(username), {
         headers: {
           Authorization: "Bearer ".concat(token)
-        } //username: username,
-
+        }
       }).then(function (response) {
         var data = response.data;
         window.open("/", "_self");
@@ -38387,7 +38386,26 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "removeItem",
-    value: function removeItem(movie) {//write code for removing the movie here
+    value: function removeItem(movie) {
+      var _this3 = this;
+
+      var username = localStorage.getItem("user");
+      var token = localStorage.getItem("token");
+
+      _axios.default.delete("https://the-greatest.herokuapp.com/users/".concat(username, "/movies/").concat(movie), {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        },
+        favoriteMovie: this.favoriteMovie
+      }).then(function (response) {
+        _this3.setState({
+          favoriteMovie: response.data.favoriteMovie
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+
+      alert("Movie successfully removed");
     }
   }, {
     key: "setUsername",
@@ -38407,7 +38425,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var movies = this.props.movies;
       var username = this.state.username,
@@ -38427,9 +38445,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, "Username: ", username), _react.default.createElement(_Card.default.Text, {
         className: "text-card"
       }, "Email: ", email), _react.default.createElement(_Button.default, {
-        className: "button-delete",
+        className: "remove-button",
         onClick: function onClick() {
-          return _this3.handleDeregistration();
+          return _this4.handleDeregistration();
         }
       }, "Deregister"))), _react.default.createElement(_Card.default, {
         className: "edit-profile-card"
@@ -38443,7 +38461,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         name: "username",
         value: this.username,
         onChange: function onChange(e) {
-          return _this3.setUsername(e.target.value);
+          return _this4.setUsername(e.target.value);
         }
       })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
         className: "password-label"
@@ -38453,7 +38471,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         name: "password",
         value: this.password,
         onChange: function onChange(e) {
-          return _this3.setPassword(e.target.value);
+          return _this4.setPassword(e.target.value);
         }
       })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
         className: "email-label"
@@ -38463,32 +38481,45 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         name: "email",
         value: this.email,
         onChange: function onChange(e) {
-          return _this3.setEmail(e.target.value);
+          return _this4.setEmail(e.target.value);
         }
       })), _react.default.createElement(_Button.default, {
-        className: "button-update",
+        className: "back-button",
         onClick: function onClick() {
-          return _this3.handleUpdate();
+          return _this4.handleUpdate();
         }
       }, "Update Now!"))), _react.default.createElement(_Card.default, {
         className: "favorites-card"
       }, _react.default.createElement(_Card.default.Header, {
         as: "h5"
-      }, "My Favorite Movies"), _react.default.createElement(_Card.default.Body, null, favoriteMovie.length === 0 && _react.default.createElement("div", null, "No favorites"), _react.default.createElement("div", null, _react.default.createElement("ul", null, favoriteMovie.length > 0 && favoriteMovie.map(function (movie) {
+      }, "My Favorite Movies"), _react.default.createElement(_Card.default.Body, null, favoriteMovie.length === 0 && _react.default.createElement("div", null, "No favorites"), _react.default.createElement("div", null, _react.default.createElement("ul", null, favoriteMovie.length > 0 && movies.map(function (movie) {
         if (movie._id === favoriteMovie.find(function (favMovie) {
           return favMovie === movie._id;
         })) {
           return _react.default.createElement("li", {
             className: "favorite-items",
             key: movie._id
-          }, favoriteMovie);
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie._id)
+          }, movie.Title), _react.default.createElement(_Button.default, {
+            className: "remove-button",
+            onClick: function onClick() {
+              return _this4.removeItem(movie._id);
+            }
+          }, "Remove from Favorites"));
         }
-      }))))))));
+      })))))), _react.default.createElement(_Row.default, null, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_Button.default, {
+        className: "back-button",
+        variant: "link"
+      }, "Go Back")))));
     }
   }]);
 
   return ProfileView;
 }(_react.default.Component); //11-21 2:26pm progress made!
+//11-22 5:45pm further progress made!  Able to complete profile view after watching 1 youtube video.
 
 
 exports.ProfileView = ProfileView;
@@ -38587,7 +38618,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       if (accessToken !== null) {
         this.setState({
-          //user: JSON.parse(localStorage.getItem('user'))
           user: localStorage.getItem('user')
         });
         this.getMovies(accessToken);
@@ -38600,8 +38630,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       this.setState({
         user: authData.user.username
       });
-      localStorage.setItem('token', authData.token); //localStorage.setItem('user', JSON.stringify(authData.user));
-
+      localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.username);
       this.getMovies(authData.token);
     }
@@ -38664,7 +38693,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/profile",
         render: function render() {
-          return _react.default.createElement(_profileView.ProfileView, null);
+          return _react.default.createElement(_profileView.ProfileView, {
+            movies: _this3.state.movies
+          });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/movies/:movieId",
@@ -38813,7 +38844,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57871" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54510" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
