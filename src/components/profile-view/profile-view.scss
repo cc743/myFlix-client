@@ -1,0 +1,17 @@
+
+.favorite-items {
+  font-size: 24px;
+}
+
+.remove-button {
+  transition-duration: 0.6s;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 15px;
+  border-radius: 8px;
+  background-color: #f44336;
+}
+
+.remove-button:hover {
+  background-color: #8d2d26;
+}

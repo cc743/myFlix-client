@@ -5,6 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
+import { Link } from "react-router-dom";
+
 import './movie-view.scss'
 
 export class MovieView extends React.Component {
@@ -16,37 +18,11 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie, goBack } = this.props;
+    const { movie } = this.props;
 
     if (!movie) return null;
 
     return (
-      /* <div className = "movie-view">
-        <img className = "movie-poster" src = {movie.ImagePath} />
-        <div className = "movie-title">
-          <span className = "label">Title: </span>
-          <span className = "value">{movie.Title}</span>
-        </div>
-
-        <div className = "movie-description">
-          <span className = "label">Description: </span>
-          <span className = "value">{movie.Description}</span>
-        </div>
-
-        <div className = "movie-genre">
-          <span className = "label">Genre: </span>
-          <span className = "value">{movie.Genre.Name}</span>
-        </div>
-
-        <div className = "movie-director">
-          <span className = "label">Director: </span>
-          <span className = "value">{movie.Director.Name}</span>
-        </div>
-
-        <div>
-          <button onClick = {() => goBack()} className = "back-button">Back</button>
-        </div>
-      </div> */
 
       <div className = "movie-view">
         <Container>
@@ -67,21 +43,27 @@ export class MovieView extends React.Component {
               </Row>
               <Row>
                 <div className = "movie-genre">
-                  <span className = "label">Genre: </span>
-                  <span className = "value">{movie.Genre.Name}</span>
+                  <Link to = {`/Genres/${movie.Genre.Name}`}>
+                    <span className = "label">Genre: </span>
+                    <span className = "value">{movie.Genre.Name}</span>
+                  </Link>
                 </div>
               </Row>
               <Row>
                 <div className = "movie-director">
-                  <span className = "label">Director: </span>
-                  <span className = "value">{movie.Director.Name}</span>
+                  <Link to = {`/Directors/${movie.Director.Name}`}>
+                    <span className = "label">Director: </span>
+                    <span className = "value">{movie.Director.Name}</span>
+                  </Link>
                 </div>
               </Row>
             </Col>
           </Row>
 
           <Row>
-            <Button onClick={() => goBack()} className="back-button">Back</Button>
+          <Link to = {`/`}>
+            <Button className="sesame-button" variant="link">Go Back</Button>
+          </Link>
           </Row>
         </Container>
       </div>

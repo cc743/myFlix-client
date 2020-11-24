@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Link } from "react-router-dom";
 
 import './login-view.scss'
 
@@ -15,24 +17,28 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    //console.log(username, password);
     /* Send a request to the server for authentication the call props.onLoggedIn(username)*/
-    props.onLoggedIn(username); 
+    axios.post('https://the-greatest.herokuapp.com/login', {
+      username: username,
+      password: password
+    })
+    .then(response => {
+      const data = response.data;
+      props.onLoggedIn(data); 
+    })
+    .catch(e => {
+      console.log('no such user')
+    });
   };
 
-  return (
-    /* <form>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)}/>
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
-      </label>
-      <button type="button" onClick={handleSubmit}>Submit</button>
-    </form> */
+  const handleRegistrant = (e) => {
+    e.preventDefault();
 
+  }
+
+  return (
+    
     <Form className="overall-form">
       <Container className="header">
         <Form.Label className="label">
@@ -50,6 +56,10 @@ export function LoginView(props) {
         </Form.Group>
         <Col>
           <Button className="login-button" block type="submit" onClick={handleSubmit}>Submititi</Button>
+          <h5 className="label">New to the Site?</h5>
+          <Link className="link" to = {`/register`}>
+            <Button className="login-button" variant="link">Register Here</Button> 
+        </Link>
         </Col>
       </Container>
     </Form>

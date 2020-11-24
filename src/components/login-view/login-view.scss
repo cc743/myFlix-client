@@ -22,12 +22,12 @@ html {
 }
 
 .login-button {
-  width: 20%;
+  width: 12em;
   margin-left: auto;
   margin-right: auto;
   background-color: $blue;
   color: white;
-  transition-duration: 0.4s;
+  transition-duration: 0.4s; 
 }
 
 .login-button:hover {
