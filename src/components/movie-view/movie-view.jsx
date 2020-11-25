@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -14,7 +15,26 @@ export class MovieView extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+      favoriteMovie: []
+    };
+  }
+
+  addItem(movie) {
+    const username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+    axios.put(`https://the-greatest.herokuapp.com/users/${username}/movies/${movie}`, null, {
+      headers: {Authorization: `Bearer ${token}`},
+    })
+    .then((response) => {
+      this.setState({
+        favoriteMovie: response.data.favoriteMovie
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    console.log(movie);
   }
 
   render() {
@@ -64,6 +84,9 @@ export class MovieView extends React.Component {
           <Link to = {`/`}>
             <Button className="sesame-button" variant="link">Go Back</Button>
           </Link>
+          </Row>
+          <Row>
+            <Button className="sesame-button" onClick={() => this.addItem(movie._id)}>Add to Favorites</Button>
           </Row>
         </Container>
       </div>
