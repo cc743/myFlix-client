@@ -110,9 +110,7 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem("token");
 
     axios.delete(`https://the-greatest.herokuapp.com/users/${username}/movies/${movie}`, {
-      headers: {Authorization: `Bearer ${token}`}, 
-
-      favoriteMovie: this.favoriteMovie
+      headers: {Authorization: `Bearer ${token}`},
     })
     .then((response) => {
       this.setState({
@@ -192,6 +190,7 @@ export class ProfileView extends React.Component {
                           <Link to = {`/movies/${movie._id}`}>
                             {movie.Title}
                           </Link>
+                          <br/>
                           <Button className="remove-button" onClick={() => this.removeItem(movie._id)}>Remove from Favorites</Button>
                         </li>
                       );
@@ -215,5 +214,26 @@ export class ProfileView extends React.Component {
   }
 
 }
+
+ProfileView.propTypes = {
+  movie: PropTypes.arrayOf({
+    _id: PropTypes.string.isRequired,
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Bio: PropTypes.string.isRequired,
+      Birth: PropTypes.string.isRequired
+    }),
+    ImagePath: PropTypes.string.isRequired,
+    Featured: PropTypes.bool
+  }),
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired
+  }),
+};
+
 //11-21 2:26pm progress made!
 //11-22 5:45pm further progress made!  Able to complete profile view after watching 1 youtube video.

@@ -37838,6 +37838,8 @@ exports.MovieView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
@@ -37887,13 +37889,39 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, MovieView);
 
     _this = _super.call(this);
-    _this.state = {};
+    _this.state = {
+      favoriteMovie: []
+    };
     return _this;
   }
 
   _createClass(MovieView, [{
+    key: "addItem",
+    value: function addItem(movie) {
+      var _this2 = this;
+
+      var username = localStorage.getItem("user");
+      var token = localStorage.getItem("token");
+
+      _axios.default.put("https://the-greatest.herokuapp.com/users/".concat(username, "/movies/").concat(movie), null, {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        _this2.setState({
+          favoriteMovie: response.data.favoriteMovie
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+
+      console.log(movie);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var movie = this.props.movie;
       if (!movie) return null;
       return _react.default.createElement("div", {
@@ -37934,7 +37962,12 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_Button.default, {
         className: "sesame-button",
         variant: "link"
-      }, "Go Back")))));
+      }, "Go Back"))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Button.default, {
+        className: "sesame-button",
+        onClick: function onClick() {
+          return _this3.addItem(movie._id);
+        }
+      }, "Add to Favorites"))));
     }
   }]);
 
@@ -37959,7 +37992,7 @@ MovieView.propTypes = {
     Featured: _propTypes.default.bool
   })
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"components/genre-view/genre-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"components/genre-view/genre-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -38395,8 +38428,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       _axios.default.delete("https://the-greatest.herokuapp.com/users/".concat(username, "/movies/").concat(movie), {
         headers: {
           Authorization: "Bearer ".concat(token)
-        },
-        favoriteMovie: this.favoriteMovie
+        }
       }).then(function (response) {
         _this3.setState({
           favoriteMovie: response.data.favoriteMovie
@@ -38501,7 +38533,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
             key: movie._id
           }, _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(movie._id)
-          }, movie.Title), _react.default.createElement(_Button.default, {
+          }, movie.Title), _react.default.createElement("br", null), _react.default.createElement(_Button.default, {
             className: "remove-button",
             onClick: function onClick() {
               return _this4.removeItem(movie._id);
@@ -38518,11 +38550,29 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return ProfileView;
-}(_react.default.Component); //11-21 2:26pm progress made!
-//11-22 5:45pm further progress made!  Able to complete profile view after watching 1 youtube video.
-
+}(_react.default.Component);
 
 exports.ProfileView = ProfileView;
+ProfileView.propTypes = {
+  movie: _propTypes.default.arrayOf({
+    _id: _propTypes.default.string.isRequired,
+    Title: _propTypes.default.string.isRequired,
+    Description: _propTypes.default.string.isRequired,
+    Genre: _propTypes.default.shape({
+      Name: _propTypes.default.string.isRequired,
+      Bio: _propTypes.default.string.isRequired,
+      Birth: _propTypes.default.string.isRequired
+    }),
+    ImagePath: _propTypes.default.string.isRequired,
+    Featured: _propTypes.default.bool
+  }),
+  user: _propTypes.default.shape({
+    username: _propTypes.default.string.isRequired,
+    password: _propTypes.default.string.isRequired,
+    email: _propTypes.default.string.isRequired
+  })
+}; //11-21 2:26pm progress made!
+//11-22 5:45pm further progress made!  Able to complete profile view after watching 1 youtube video.
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/CardGroup":"../node_modules/react-bootstrap/esm/CardGroup.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./profile-view.scss":"components/profile-view/profile-view.scss"}],"components/main-view/main-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
@@ -38844,7 +38894,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54510" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59541" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
