@@ -1,3 +1,65 @@
+html {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
+.overall-form {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
+.header {
+  margin-top: 20px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.login-form {
+  margin-top: 5px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.login-button {
+  width: 12em;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #3480eb;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.login-button:hover {
+  background-color: white;
+  color: #3480eb;
+}
+html {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
+.overall-form {
+  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
+}
+
+.header {
+  margin-top: 20px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.login-form {
+  margin-top: 5px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.login-button {
+  width: 12em;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #3480eb;
+  color: white;
+  transition-duration: 0.4s;
+}
+
+.login-button:hover {
+  background-color: white;
+  color: #3480eb;
+}
 .card {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -22,68 +84,6 @@
 }
 
 .sesame-button:hover {
-  background-color: white;
-  color: #3480eb;
-}
-html {
-  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
-}
-
-.overall-form {
-  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
-}
-
-.header {
-  margin-top: 20px;
-  font-family: "Roboto Slab", sans-serif;
-}
-
-.login-form {
-  margin-top: 5px;
-  font-family: "Roboto Slab", sans-serif;
-}
-
-.login-button {
-  width: 12em;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #3480eb;
-  color: white;
-  transition-duration: 0.4s;
-}
-
-.login-button:hover {
-  background-color: white;
-  color: #3480eb;
-}
-html {
-  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
-}
-
-.overall-form {
-  background: linear-gradient(90deg, #7e6e1c 40%, #351c80 60%);
-}
-
-.header {
-  margin-top: 20px;
-  font-family: "Roboto Slab", sans-serif;
-}
-
-.login-form {
-  margin-top: 5px;
-  font-family: "Roboto Slab", sans-serif;
-}
-
-.login-button {
-  width: 12em;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #3480eb;
-  color: white;
-  transition-duration: 0.4s;
-}
-
-.login-button:hover {
   background-color: white;
   color: #3480eb;
 }
