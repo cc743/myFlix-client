@@ -2,13 +2,18 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+
 import { Link, BrowserRouter as Router, Route } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+//#0
+import { setMovies, setUser } from '../../actions/actions';
 
+import MoviesList from '../movies-list/movies-list'; 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card'; 
@@ -23,28 +28,20 @@ export class MainView extends React.Component {
   constructor() {
     super();
 
-    //Initialize the state to an empty object so we can destructure it later
-    this.state = {
-      movies: [],
-      user: null
-    };
   }
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
+      this.props.setUser(user);
       this.getMovies(accessToken);
     }
   }
 
   onLoggedIn(authData) {
     console.log(authData);
-    this.setState({
-      user: authData.user.username
-    });
+    this.props.setUser(authData.user.username);
 
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.username);
@@ -56,52 +53,66 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
-      //assign the result to the state
-      this.setState({
-        movies: response.data
-      });
+      //#1
+      this.props.setMovies(response.data);
     })
     .catch(function (error) {
       console.log(error);
     });
   }
 
+  onLoggedOut() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    this.props.setUser('');
+    location.reload()
+  }
+
   //This overrides the render() method of the superclass. 
   render() {
-    const { movies, user } = this.state;
+    //#2
+    let { movies, user } = this.props;
 
     if (!movies) return <div className = "main-view"/>;
 
     return (
-
       <Router>
         <div className = "main-view">
           <Row>
-              <Link to="/profile" className="username-button">
-                <Button>{user}</Button>
-              </Link>
+            <Link to="/profile" className="username-button">
+              <Button>{user}</Button>
+            </Link>
+          </Row>
+          <Row>
+            <Link to="/" className="username-button">
+              <Button onClick={() => this.onLoggedOut()}>Log Out</Button>
+            </Link>
           </Row>
           <Route exact path = "/" render = {() => {
             if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>;
-            return movies.map(m => 
-              <MovieCard key = {m._id} movie = {m} />
-            ) 
-          } 
-          }/>
+            return <MoviesList movies={movies}/>
+          }}/>
           <Route path="/register" render = {() => <RegistrationView />} />
-          <Route path="/profile" render = {() => <ProfileView movies={this.state.movies}/>} />
+          <Route path="/profile" render = {() => <ProfileView movies={movies}/>} />
           <Route path = "/movies/:movieId" render = {( {match} ) => <MovieView movie = {movies.find(m => m._id === match.params.movieId )}/> }/>  
           <Route path = "/Genres/:name" render = {( {match} ) => <GenreView movie = {movies.find(m => m.Genre.Name === match.params.name)} />}/>
           <Route path = "/Directors/:name" render = {( {match} ) => <DirectorView movie = {movies.find(m => m.Director.Name === match.params.name)} />}/> 
-          
+            
         </div>
-
+        
       </Router>
 
       );
-
   }
 }
+
+//#3
+let mapStateToProps = state => {
+  return { movies: state.movies, user: state.user }
+}
+
+//#4
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
 
 MainView.propTypes = {
   movie: PropTypes.arrayOf({

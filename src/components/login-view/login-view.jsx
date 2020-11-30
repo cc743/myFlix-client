@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -18,7 +20,6 @@ export function LoginView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     //console.log(username, password);
-    /* Send a request to the server for authentication the call props.onLoggedIn(username)*/
     axios.post('https://the-greatest.herokuapp.com/login', {
       username: username,
       password: password
