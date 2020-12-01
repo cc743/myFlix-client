@@ -142,7 +142,7 @@ export class ProfileView extends React.Component {
       email = this.state.email,
       favoriteMovie = this.state.favoriteMovie;
 
-    //console.log(favoriteMovie)
+    console.log(favoriteMovie)
 
     return (
       <div className="profile-view">
