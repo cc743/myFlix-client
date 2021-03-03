@@ -11,3 +11,13 @@ Here is a view of the main page view upon successfully logging in:
 Here is the profile view:
 
 ![myFlix Profile View](/src/pics/Snip7_myFlixReactProfileView.PNG) 
+
+In order to use the app, please register first on the welcome page, then log in with your login credentials.
+
+# Install Dependencies
+
+`npm install`
+
+# Run on local server
+
+`parcel src/index.html`
