@@ -14,10 +14,10 @@ Here is the profile view:
 
 In order to use the app, please register first on the welcome page, then log in with your login credentials.
 
-# Install Dependencies
+### Install Dependencies
 
 `npm install`
 
-# Run on local server
+### Run on local server
 
 `parcel src/index.html`
