@@ -18,5 +18,8 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "sass": "^1.29.0"
+  },
+  "scripts": {
+    "build": "parcel src/index.html"
   }
 }
