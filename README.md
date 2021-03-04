@@ -21,3 +21,7 @@ In order to use the app, please register first on the welcome page, then log in 
 ### Run on local server
 
 `parcel src/index.html`
+
+### Demo
+
+The app is live at: https://cc743-myflix-client.netlify.app/
